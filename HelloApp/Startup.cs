@@ -27,13 +27,16 @@ namespace HelloApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // Middleware -обозначает небольшие компоненты приложения, конвейеры обработки 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {   
-            // если приложение в процессе разработки 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+        {
+            //// если приложение в процессе разработки 
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+
+            int x = 2;
 
             // обработка запроса - получаем контекст запроса в ввиде объекта context
             app.Run(async (context) =>
@@ -41,7 +44,10 @@ namespace HelloApp
                 // отправить ответ в виде строки 
                 //await context.Response.WriteAsync("Hello World!");
                 // В браузере будет выводится название приложения, которое хранится в свойстве _env.Application
-                await context.Response.WriteAsync(_env.ApplicationName);
+                //await context.Response.WriteAsync(_env.ApplicationName);
+
+                x = x * 2; // 2 * 2 = 4
+                await context.Response.WriteAsync($"Result: {x}"); // показывает что компоненты middleware создаются один раз при старте приложения 
 
             });
         }
