@@ -11,6 +11,15 @@ namespace HelloApp
 {
     public class Startup
     {
+        IHostingEnvironment _env;
+
+        // используем необязательный конструктор 
+        public Startup(IHostingEnvironment env)
+        {
+            _env = env;
+        }
+        
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -19,16 +28,24 @@ namespace HelloApp
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
+        {   
+            // если приложение в процессе разработки 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
+            // обработка запроса - получаем контекст запроса в ввиде объекта context
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                // отправить ответ в виде строки 
+                //await context.Response.WriteAsync("Hello World!");
+                // В браузере будет выводится название приложения, которое хранится в свойстве _env.Application
+                await context.Response.WriteAsync(_env.ApplicationName);
+
             });
         }
+
+
     }
 }

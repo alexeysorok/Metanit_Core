@@ -15,7 +15,7 @@ namespace HelloApp
     {
         public static void Main(string[] args)
         {
-            //CreateWebHostBuilder(args).Build().Run();
+            CreateWebHostBuilder(args).Build().Run();
 
             //var host = new WebHostBuilder()
             //.UseKestrel() // настраиваем веб-сервер kestrel
@@ -26,19 +26,19 @@ namespace HelloApp
 
             //host.Run(); // запускаем приложение
 
-            using (var host = WebHost.Start("http://localhost:8080", async context =>
-            {
-                context.Response.ContentType = "text/html; charset=utf-8";
-                await context.Response.WriteAsync("Привет мир!");
-            }))
-            {
-                Console.WriteLine("Application has been startded"); // показываем что приложение запустилось
-                host.WaitForShutdown();
-            }
+            //using (var host = WebHost.Start("http://localhost:8080", async context =>
+            //{
+            //    context.Response.ContentType = "text/html; charset=utf-8";
+            //    await context.Response.WriteAsync("Привет мир!");
+            //}))
+            //{
+            //    Console.WriteLine("Application has been startded"); // показываем что приложение запустилось
+            //    host.WaitForShutdown();
+            //}
         }
 
-        // public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-        //     WebHost.CreateDefaultBuilder(args)
-        //         .UseStartup<Startup>();
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>();
     }
 }
