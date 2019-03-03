@@ -20,7 +20,7 @@ namespace HelloApp
             //var host = new WebHostBuilder()
             //.UseKestrel() // настраиваем веб-сервер kestrel
             //.UseContentRoot(Directory.GetCurrentDirectory()) // настраиваем корневой каталог приложения
-            //.UseIISIntegration() // интеграция с IIS #endregion
+            //.UseIISIntegration() // интеграция с IIS - будет прокси серверов и передвать в kestrel 
             //.UseStartup<Startup>() // устанавливаем главный файл приложения
             //.Build(); // создаем хост 
 
@@ -32,6 +32,7 @@ namespace HelloApp
                 await context.Response.WriteAsync("Привет мир!");
             }))
             {
+                Console.WriteLine("Application has been startded"); // показываем что приложение запустилось
                 host.WaitForShutdown();
             }
         }
