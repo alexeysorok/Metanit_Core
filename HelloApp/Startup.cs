@@ -61,7 +61,21 @@ namespace HelloApp
 
                 //x = x * 2; // 2 * 2 = 4
                 //await context.Response.WriteAsync($"Result: {x}"); // показывает что компоненты middleware создаются один раз при старте приложения 
-                await context.Response.WriteAsync($"x * y = {z}");
+                //await context.Response.WriteAsync($"x * y = {z}");
+
+                // имя хоста к кторому обращается пользователь 
+                string host = context.Request.Host.Value;
+                // путь запроса 
+                string path = context.Request.Path;
+                // параметры строки запрос 
+                string query = context.Request.QueryString.Value;
+
+
+                // можем отрправлять код HTML 
+                await context.Response.WriteAsync($"<h3>Host: {host}</h3>" +
+                    $" <h3>Path: {path}</h3>" +
+                    $"<h3>Query: {query}</h3>");
+
 
             });
         }
