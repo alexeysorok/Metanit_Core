@@ -32,10 +32,11 @@ namespace HelloApp
         {
 
             // подключение middleware через класс
-            app.UseToken();
+            // передача значений
+            app.UseToken("123");
 
             // подключение middleware
-            app.UseMiddleware<TokenMiddleware>();
+            //app.UseMiddleware<TokenMiddleware>();
 
 
             //Метод Map(и методы расширения MapXXX()) применяется для сопоставления

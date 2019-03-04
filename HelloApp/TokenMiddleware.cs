@@ -9,16 +9,19 @@ namespace HelloApp
     public class TokenMiddleware
     {
         private readonly RequestDelegate _next;
+        string _pattern;
 
-        public TokenMiddleware(RequestDelegate next)
+        public TokenMiddleware(RequestDelegate next, string pattern)
         {
             this._next = next;
+            this._pattern = pattern;
         }
 
-        public async Task InvokeAsync(HttpContext context)
+        // Изменим класс TokenMiddleware, чтобы он извне получал образец токена для сравнения
+        public async Task Invoke(HttpContext context)
         {
             var token = context.Request.Query["token"];
-            if (token != "12345678")
+            if (token != _pattern)
             {
                 context.Response.StatusCode = 403;
                 await context.Response.WriteAsync("Token is invalid");
@@ -28,6 +31,21 @@ namespace HelloApp
                 await _next.Invoke(context);
             }
         }
+
+
+        //public async Task InvokeAsync(HttpContext context)
+        //{
+        //    var token = context.Request.Query["token"];
+        //    if (token != "12345678")
+        //    {
+        //        context.Response.StatusCode = 403;
+        //        await context.Response.WriteAsync("Token is invalid");
+        //    }
+        //    else
+        //    {
+        //        await _next.Invoke(context);
+        //    }
+        //}
 
 
     }
