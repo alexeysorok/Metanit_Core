@@ -31,6 +31,13 @@ namespace HelloApp
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
 
+            // подключение middleware через класс
+            app.UseToken();
+
+            // подключение middleware
+            app.UseMiddleware<TokenMiddleware>();
+
+
             //Метод Map(и методы расширения MapXXX()) применяется для сопоставления
             //пути запроса с определeнным делегатом, 
             //который будет обрабатывать запрос по этому пути
