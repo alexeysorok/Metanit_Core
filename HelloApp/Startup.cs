@@ -30,6 +30,14 @@ namespace HelloApp
         // Middleware -обозначает небольшие компоненты приложения, конвейеры обработки 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
+            //Метод Map(и методы расширения MapXXX()) применяется для сопоставления
+            //пути запроса с определeнным делегатом, 
+            //который будет обрабатывать запрос по этому пути
+            app.Map("/index", Index);
+            app.Map("/about", About);
+            
+            
             //// если приложение в процессе разработки 
             //if (env.IsDevelopment())
             //{
@@ -74,9 +82,26 @@ namespace HelloApp
                 // можем отрправлять код HTML 
                 await context.Response.WriteAsync($"<h3>Host: {host}</h3>" +
                     $" <h3>Path: {path}</h3>" +
-                    $"<h3>Query: {query}</h3>");
+                    $" <h3>Query: {query}</h3>");
 
 
+            });
+        }
+
+
+        private static void Index(IApplicationBuilder app)
+        {
+            app.Run(async context =>
+            {
+                await context.Response.WriteAsync("Index");
+            });
+        }
+
+        private static void About(IApplicationBuilder app)
+        {
+            app.Run(async context =>
+            {
+                await context.Response.WriteAsync("About");
             });
         }
 
