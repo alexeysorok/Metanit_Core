@@ -45,12 +45,23 @@ namespace HelloApp
 
             });
             //Теперь метод About будет обарабатывать запрос не http://localhost:xxxx/about, а http://localhost:xxxx/home/about
-            
+
             //// если приложение в процессе разработки 
             //if (env.IsDevelopment())
             //{
             //    app.UseDeveloperExceptionPage();
             //}
+
+            app.MapWhen(context => {
+
+                return context.Request.Query.ContainsKey("id") &&
+                        context.Request.Query["id"] == "5";
+            }, HandleId);
+
+            //В данном случае если в запросе указан параметр id и он имеет значение 5, то запрос обрабатывается функцией HandleId().К подобным запросам будут относиться, например, запрос http://localhost:55234/?id=5 или http://localhost:55234/product?id=5&name=phone, так как обе строки запроса содержат параметр id равный 5. А все остальные запросы также будут обрабатываться делегатом, передаваемым в метод app.Run().
+
+
+
 
             int x = 2;
             int y = 8;
@@ -112,6 +123,16 @@ namespace HelloApp
                 await context.Response.WriteAsync("About");
             });
         }
+
+        private static void HandleId(IApplicationBuilder app)
+        {
+            app.Run(async context =>
+            {
+                await context.Response.WriteAsync("id is equal to 5");
+            });
+        }
+
+
 
 
     }
