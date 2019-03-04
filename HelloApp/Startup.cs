@@ -36,7 +36,15 @@ namespace HelloApp
             //который будет обрабатывать запрос по этому пути
             app.Map("/index", Index);
             app.Map("/about", About);
-            
+
+            // вложенные методы Map, обрабатывают маршруты
+            app.Map("/home", home =>
+            {
+                home.Map("/index", Index);
+                home.Map("/about", About);
+
+            });
+            //Теперь метод About будет обарабатывать запрос не http://localhost:xxxx/about, а http://localhost:xxxx/home/about
             
             //// если приложение в процессе разработки 
             //if (env.IsDevelopment())
