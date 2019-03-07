@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<HelloMvcApp.Models.Phone>
 
 @{
-    ViewData["Title"] = "Список телефонов";
+    ViewData["Title"] = "Каталог товаров";
 }
 
 <!DOCTYPE html>
@@ -12,13 +12,16 @@
 </head>
 <body>
     <h3>Телефоны</h3>
-    <table>
-        <tr>
-            <td>Модель</td>
-            <td>Производитель</td>
-            <td>Цена</td>
-            <td></td>
-        </tr>
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <td>Модель</td>
+                <td>Производитель</td>
+                <td>Цена</td>
+                <td></td>
+            </tr>
+        </thead>
+        
         @foreach (var phone in Model)
         {
             <tr>
