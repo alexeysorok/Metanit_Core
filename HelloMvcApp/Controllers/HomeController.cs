@@ -10,9 +10,17 @@ namespace HelloMvcApp.Controllers
 {
     public class HomeController : Controller
     {
+        MobileContext db;
+
+        // получаем контекст данных
+        public HomeController(MobileContext context)
+        {
+            db = context;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            return View(db.Phones.ToList());
         }
 
         public IActionResult Privacy()
